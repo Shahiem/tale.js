@@ -1,0 +1,161 @@
+.viewer {
+  width: 450px;
+  height: 600px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: #000;
+  border-radius: 5px;
+  -webkit-box-shadow: -5px -1px 36px 2px rgba(0, 0, 0, 0.09);
+  -moz-box-shadow: -5px -1px 36px 2px rgba(0, 0, 0, 0.09);
+  box-shadow: -5px -1px 36px 2px rgba(0, 0, 0, 0.09);
+  display: none;
+  z-index: 99;
+}
+
+.viewer--visible {
+  display: block;
+}
+
+.viewer--hidden {
+  -webkit-animation: hide-viewer 0.4s normal forwards ease-out;
+  -moz-animation: hide-viewer 0.4s normal forwards ease-out;
+  animation: hide-viewer 0.4s normal forwards ease-out;
+}
+
+.viewer__close {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+
+.viewer__close:hover {
+  opacity: 1;
+}
+
+.viewer__close:before,
+.viewer__close:after {
+  position: absolute;
+  left: 25px;
+  content: " ";
+  height: 20px;
+  width: 2px;
+  background-color: #fff;
+
+}
+
+.viewer__close:before {
+  transform: rotate(45deg);
+}
+
+.viewer__close:after {
+  transform: rotate(-45deg);
+}
+
+// Author
+.viewer__author {
+  display: flex;
+  padding: 20px;
+}
+
+.viewer__author img {
+  width: 40px;
+  height: 40px;
+  border: solid 1px #f06d06;
+  padding: 2px;
+  background-clip: content-box;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.viewer__name {
+  padding-left: 15px;
+  padding-top: 5px;
+  font-weight: bold;
+  color: rgb(83, 83, 83);
+}
+
+.viewer__time {
+  font-size: 12px;
+  padding-left: 10px;
+  padding-top: 9px;
+  color: #aaa;
+}
+
+// Content
+
+.viewer__content {
+  text-align: center;
+  padding-top: 20px;
+}
+
+// Progress
+.viewer_progressbar {
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.viewer_progress {
+  -webkit-box-shadow: -1px -4px 34px -2px rgba(0, 0, 0, 1);
+  -moz-box-shadow: -1px -4px 34px -2px rgba(0, 0, 0, 1);
+  box-shadow: -1px -4px 34px -2px rgba(0, 0, 0, 1);
+  background: #777;
+  opacity: .8;
+  position: relative;
+  border-radius: 10px;
+  top: 10px;
+  flex-grow: 1;
+  flex-basis: 0;
+  z-index: 999;
+  height: 3px;
+  margin-right: 5px;
+  position: relative;
+}
+
+.viewer_progress--filed {
+  width: 10px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: progress 2s normal forwards ease-out;
+}
+
+@keyframes progress {
+  100% {
+    width: 100%;
+  }
+}
+
+// Animations
+
+@keyframes hide-viewer {
+  100% {
+    opacity: 0;
+    height: 0;
+    display: none;
+  }
+}
+
+@-webkit-keyframes hide-viewer {
+  100% {
+    opacity: 0;
+    height: 0;
+    display: none;
+  }
+}
+
+@-moz-keyframes hide-viewer {
+  100% {
+    opacity: 0;
+    height: 0;
+    display: none;
+  }
+}

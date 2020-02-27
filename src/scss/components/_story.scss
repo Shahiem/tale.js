@@ -1,0 +1,47 @@
+// Stories
+.stories {
+  display: flex;
+  padding: 10px;
+}
+
+// Story
+.story {
+  padding: 10px;
+  text-align: center;
+}
+
+.story__username {
+  padding-top: 10px;
+  padding-left: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block;
+}
+
+.story__avatar {
+  border: solid 1px #f06d06;
+  height: 100px;
+  width: 100px;
+  background-clip: content-box;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.story .story__avatar--seen {
+  border: solid 1px #aaa;
+}
+
+.story__avatar {
+  border: solid 1px #f06d06;
+  padding: 2px;
+  background-clip: content-box;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.photo {
+  border-radius: 50%;
+}

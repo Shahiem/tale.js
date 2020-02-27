@@ -1,0 +1,46 @@
+/* Base */
+@import "base/vars";
+@import "base/reset";
+@import "base/print";
+@import "base/fonts";
+@import "base/mixins";
+
+/* Components */
+@import "components/blocker";
+@import "components/story";
+@import "components/viewer";
+
+/* Main */
+body {
+  background: #fff;
+  color: $foreground-color;
+  font-family: "DINP-R", arial, serif;
+}
+
+// Logo
+.logo {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 50px;
+  padding-top: 30px;
+}
+
+.error {
+  background: #fffad3;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.footer {
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+}
+
+.footer a {
+  color: rgb(240, 154, 154); 
+
+}
