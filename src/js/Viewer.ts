@@ -23,13 +23,13 @@ export default class Viewer {
     this._addProgressBars();
 
     if (user.stories && user.stories[0]) {
-      this._setFirstStory(user.stories);
+      this._setStory(0, user.stories);
     }
   }
 
-  private _setFirstStory(story: User['stories']) {
-    let self = this;
-    const storyData = story[0];
+  private _setStory(number: number, story: User['stories']) {
+    const self = this;
+    const storyData = story[number];
 
     switch (storyData.type) {
       case 'image':
@@ -46,17 +46,29 @@ export default class Viewer {
         break;
     }
 
+    this._fillProgress(number);
+  }
+
+  private _fillProgress(storyId: number) {
+    let progress = document.getElementsByClassName('viewer__progress') as HTMLCollection;
+
+    if (progress[storyId]) {
+      let progressFilled: HTMLDivElement = document.createElement('div');
+      progressFilled.className = 'viewer__progress--filled';
+  
+      progress[storyId].appendChild(progressFilled);
+    }
   }
 
   private _addProgressBars() {
     if (!this._user)
       return '';
 
-    let bar = document.getElementById('viewer_progressbar') as HTMLDivElement;
+    let bar = document.getElementById('viewer__progressbar') as HTMLDivElement;
 
     for (let i = 0; i < this._user.stories.length; i++) {
       let progress = document.createElement('div');
-      progress.className = 'viewer_progress';
+      progress.className = 'viewer__progress';
 
       bar.appendChild(progress);
     }
@@ -76,7 +88,7 @@ export default class Viewer {
 
   private _resetViewer() {
     // Reset progress bars
-    let bar = document.getElementById('viewer_progressbar') as HTMLDivElement;
+    let bar = document.getElementById('viewer__progressbar') as HTMLDivElement;
     bar.innerHTML = '';
 
     // Remove content
