@@ -1,14 +1,13 @@
-# Tale.js
+# 🧚 Tale.js
 
 * Create stories
 * Vanilla JavaScript
-
 
 # Upcoming features
 
 * Add text to your story (Customize text)
 * Add videos to your story
-* Ads stories
+* Add ads between stories
 * Widgets (Poll and QA)
 
 ## Requirements
