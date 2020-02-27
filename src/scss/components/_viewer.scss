@@ -89,10 +89,35 @@
 }
 
 // Content
-
 .viewer__content {
   text-align: center;
   padding-top: 20px;
+}
+
+
+// Arrow
+.viewer__arrow {
+  position: absolute;
+  top: 50%;
+  width: 3vmin;
+  height: 3vmin;
+  border-top: 1vmin solid #aaa;
+  border-right: 1vmin solid #aaa;
+  box-shadow: 0 0 0 lightgray;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+.viewer__previous {
+  left: -30px;
+  top: 50%;
+  transform: translate3d(0, -50%, 0) rotate(-135deg);
+}
+
+.viewer__next {
+  right: -30px;
+  top: 50%;
+  transform: translate3d(0, -50%, 0) rotate(45deg);
 }
 
 // Progress
