@@ -2,17 +2,17 @@ import Viewer from "./Viewer";
 import User from "./User";
 
 export default class Story {
-  storiesEl: HTMLElement;
-  viewer: Viewer;
+  public viewer: Viewer;
+  private _storiesEl: HTMLElement;
 
   constructor() {
     this.viewer = new Viewer();
 
-    this.storiesEl = document.getElementById('stories') as HTMLElement;
+    this._storiesEl = document.getElementById('stories') as HTMLElement;
   }
 
   public addStory(user: User) {
-    if (this.storiesEl) {
+    if (this._storiesEl) {
       let story = this._createStory(user);
 
       this._appendToStories(story);
@@ -49,7 +49,7 @@ export default class Story {
   }
 
   private _appendToStories(story: HTMLElement) {
-    this.storiesEl.appendChild(story);
+    this._storiesEl.appendChild(story);
   }
 
   private _createMouseEvents(story: HTMLElement, user: User) {

@@ -19,7 +19,7 @@ story.addStory({
       type: 'image',
       date: '06-05-1996',
       time: '05:06:06',
-      url: 'https://www.ecopetit.cat/wpic/mpic/58-583702_data-src-mac-backgrounds.jpg'
+      url: 'https://www.w3schools.com/w3css/img_snowtops.jpg'
     },
     {
       type: 'image',
@@ -44,7 +44,7 @@ story.addStory({
       type: 'image',
       date: '06-05-1996',
       time: '05:06:06',
-      url: 'https://www.ecopetit.cat/wpic/mdsdsdsdssdpic/58-583702_data-src-mac-backgrounds.jpg'
+      url: 'https://www.jssor.com/demos/image-slider/img/faded-monaco-scenery-evening-dark-picjumbo-com-image.jpg'
     },
   ]
 });

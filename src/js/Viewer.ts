@@ -1,17 +1,23 @@
 import User from "./User";
 
 export default class Viewer {
-  public _viewerEl: HTMLElement;
-  public _viewerCloseEl: HTMLElement;
-  public _blockerEl: HTMLElement;
+  private _viewerEl: HTMLElement;
+  private _viewerCloseEl: HTMLElement;
+  private _blockerEl: HTMLElement;
   private _user: any;
   private _viewerContentEl: HTMLElement;
+  private _viewerPreviousEl: HTMLElement;
+  private _viewerNextEl: HTMLElement;
+  private _currentSlide: number;
 
   constructor() {
     this._viewerEl = document.getElementById('viewer') as HTMLElement;
     this._viewerContentEl = document.getElementById('viewer__content') as HTMLElement;
     this._viewerCloseEl = document.getElementById('viewer__close') as HTMLElement;
+    this._viewerPreviousEl = document.getElementById('viewer__previous') as HTMLElement;
+    this._viewerNextEl = document.getElementById('viewer__next') as HTMLElement;
     this._blockerEl = document.getElementById('blocker') as HTMLElement;
+    this._currentSlide = 0;
 
     if (this._viewerEl)
       this._createMouseEvents();
@@ -31,6 +37,8 @@ export default class Viewer {
     const self = this;
     const storyData = story[number];
 
+    self._viewerContentEl.innerHTML = '';
+
     switch (storyData.type) {
       case 'image':
         let image = document.createElement('IMG') as HTMLImageElement;
@@ -46,7 +54,12 @@ export default class Viewer {
         break;
     }
 
+    this._setCurrentSlide(number);
     this._fillProgress(number);
+  }
+
+  private _setCurrentSlide(storyId: number) {
+    this._currentSlide = storyId;
   }
 
   private _fillProgress(storyId: number) {
@@ -55,7 +68,7 @@ export default class Viewer {
     if (progress[storyId]) {
       let progressFilled: HTMLDivElement = document.createElement('div');
       progressFilled.className = 'viewer__progress--filled';
-  
+
       progress[storyId].appendChild(progressFilled);
     }
   }
@@ -81,9 +94,25 @@ export default class Viewer {
     this._user = user;
   }
 
+  private _prevStory() {
+    if (this._currentSlide == 0)
+      return;
+
+    this._setStory(this._currentSlide - 1, this._user.stories);
+  }
+
+  private _nextStory() {
+    if ((this._currentSlide + 1) == this._user.stories.length)
+      return;
+
+    this._setStory(this._currentSlide + 1, this._user.stories);
+  }
+
   private _createMouseEvents() {
     this._viewerCloseEl.addEventListener('click', this._closeViewer.bind(this));
     this._blockerEl.addEventListener('click', this._closeViewer.bind(this));
+    this._viewerPreviousEl.addEventListener('click', this._prevStory.bind(this));
+    this._viewerNextEl.addEventListener('click', this._nextStory.bind(this));
   }
 
   private _resetViewer() {
