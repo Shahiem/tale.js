@@ -1,7 +1,7 @@
 
 import '../scss/app.scss';
 
-import Story from './Story'
+import Story from './Tale/Story';
 
 let story = new Story();
 
