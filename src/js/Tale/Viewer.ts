@@ -1,4 +1,5 @@
 import User from "./User";
+import Progress from "./Progress";
 
 export default class Viewer {
   private _viewerEl: HTMLElement;
@@ -9,6 +10,7 @@ export default class Viewer {
   private _viewerPreviousEl: HTMLElement;
   private _viewerNextEl: HTMLElement;
   private _currentSlide: number;
+  private _progress: Progress | null;
 
   constructor() {
     this._viewerEl = document.getElementById('viewer') as HTMLElement;
@@ -18,73 +20,49 @@ export default class Viewer {
     this._viewerNextEl = document.getElementById('viewer__next') as HTMLElement;
     this._blockerEl = document.getElementById('blocker') as HTMLElement;
     this._currentSlide = 0;
+    this._progress = null;
 
     if (this._viewerEl)
       this._createMouseEvents();
   }
 
   public openViewer(user: User) {
-    this._setViewerVisible();
-    this._setMetaData(user);
-    this._addProgressBars();
+    if (user.stories) {
+      this._setViewerVisible();
+      this._setMetaData(user);
 
-    if (user.stories && user.stories[0]) {
       this._setStory(0, user.stories);
+      this._setProgress(user.stories);
     }
   }
 
+  private _setProgress(stories: User['stories']) {
+    this._progress = new Progress(stories);
+    this._progress.addProgress();
+    this._progress.fillProgress(this._currentSlide);
+  }
+
   private _setStory(number: number, story: User['stories']) {
-    const self = this;
-    const storyData = story[number];
+    this._viewerContentEl.innerHTML = '';
 
-    self._viewerContentEl.innerHTML = '';
+    let image = document.createElement('IMG') as HTMLImageElement;
+    image.src = story[number].url;
 
-    switch (storyData.type) {
-      case 'image':
-        let image = document.createElement('IMG') as HTMLImageElement;
-        image.src = storyData.url;
+    let self = this;
 
-        image.onload = function () {
-          self._viewerContentEl.appendChild(image);
-        }
+    image.onload = function () {
+      self._viewerContentEl.appendChild(image);
+    }
 
-        image.onerror = function (error) {
-          self._viewerContentEl.innerText = 'This image is not available.';
-        }
-        break;
+    image.onerror = function () {
+      self._viewerContentEl.innerText = 'This image is not available.';
     }
 
     this._setCurrentSlide(number);
-    this._fillProgress(number);
   }
 
   private _setCurrentSlide(storyId: number) {
     this._currentSlide = storyId;
-  }
-
-  private _fillProgress(storyId: number) {
-    let progress = document.getElementsByClassName('viewer__progress') as HTMLCollection;
-
-    if (progress[storyId]) {
-      let progressFilled: HTMLDivElement = document.createElement('div');
-      progressFilled.className = 'viewer__progress--filled';
-
-      progress[storyId].appendChild(progressFilled);
-    }
-  }
-
-  private _addProgressBars() {
-    if (!this._user)
-      return '';
-
-    let bar = document.getElementById('viewer__progressbar') as HTMLDivElement;
-
-    for (let i = 0; i < this._user.stories.length; i++) {
-      let progress = document.createElement('div');
-      progress.className = 'viewer__progress';
-
-      bar.appendChild(progress);
-    }
   }
 
   private _setMetaData(user: User) {
@@ -99,6 +77,14 @@ export default class Viewer {
       return;
 
     this._setStory(this._currentSlide - 1, this._user.stories);
+
+    if (this._progress != null) {
+      this._progress.setProgressStatus(this._currentSlide + 1, 'loading');
+
+      // Current slide
+      this._progress.setProgressStatus(this._currentSlide, 'loading');
+      this._progress.fillProgress(this._currentSlide);
+    }
   }
 
   private _nextStory() {
@@ -106,6 +92,11 @@ export default class Viewer {
       return;
 
     this._setStory(this._currentSlide + 1, this._user.stories);
+
+    if (this._progress != null) {
+      this._progress.setProgressStatus(this._currentSlide - 1, 'completed');
+      this._progress.fillProgress(this._currentSlide);
+    }
   }
 
   private _createMouseEvents() {
