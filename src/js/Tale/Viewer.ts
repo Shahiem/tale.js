@@ -11,6 +11,7 @@ export default class Viewer {
   private _viewerNextEl: HTMLElement;
   private _currentSlide: number;
   private _progress: Progress | null;
+  public stories: User[];
 
   constructor() {
     this._viewerEl = document.getElementById('viewer') as HTMLElement;
@@ -21,6 +22,8 @@ export default class Viewer {
     this._blockerEl = document.getElementById('blocker') as HTMLElement;
     this._currentSlide = 0;
     this._progress = null;
+
+    this.stories = [];
 
     if (this._viewerEl)
       this._createMouseEvents();

@@ -4,19 +4,26 @@ import User from "./User";
 export default class Story {
   public viewer: Viewer;
   private _storiesEl: HTMLElement;
+  public users: number;
 
   constructor() {
     this.viewer = new Viewer();
-
     this._storiesEl = document.getElementById('stories') as HTMLElement;
+
+    this.users = 0;
   }
 
   public addStory(user: User) {
     if (this._storiesEl) {
       let story = this._createStory(user);
 
+      this._addUserId(user);
+      this._addUser(user);
+
       this._appendToStories(story);
       this._createMouseEvents(story, user);
+
+      this.users++;
     }
   }
 
@@ -52,6 +59,14 @@ export default class Story {
     this._storiesEl.appendChild(story);
   }
 
+  private _addUser(user: User) {
+    this.viewer.stories.push(user);
+  }
+
+  private _addUserId(user: User) {
+    user.id = this.users;
+  }
+  
   private _createMouseEvents(story: HTMLElement, user: User) {
     story.addEventListener('click', this.viewer.openViewer.bind(this.viewer, user));
   }
