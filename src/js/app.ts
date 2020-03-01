@@ -31,7 +31,7 @@ story.addStory({
 });
 
 story.addStory({
-  'name': 'Ddssdsdssdobby',
+  'name': 'John Doe',
   'photo': 'https://raw.githubusercontent.com/ramon82/assets/master/zuck.js/stories/9.jpg',
   'stories': [
     {

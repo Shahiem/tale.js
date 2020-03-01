@@ -15,6 +15,11 @@
 * `node` **>=** `10.13.0`
 * `npm`
 
+
+# Demo
+
+https://shahiem.github.io/tale.js/dist/index.html
+
 # Setup
 
 ## Installation
